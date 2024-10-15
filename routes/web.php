@@ -4,8 +4,12 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::middleware('auth')->get('/', function () {
-});
+// Route::middleware('auth')->get('/', function () {
+// });
+
+Route::get('/', function () {
+    return Inertia::render('Home');
+})->middleware(['auth'])->name(name: 'home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
