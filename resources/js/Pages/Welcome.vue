@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
@@ -383,4 +383,4 @@ function handleImageError() {
             </div>
         </div>
     </div>
-</template>
+</template> -->

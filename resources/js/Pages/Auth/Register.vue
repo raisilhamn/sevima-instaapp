@@ -1,21 +1,21 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import GuestLayout from "@/Layouts/GuestLayout.vue";
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 
 const form = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+    form.post(route("register"), {
+        onFinish: () => form.reset("password", "password_confirmation"),
     });
 };
 </script>
@@ -93,15 +93,15 @@ const submit = () => {
             </div>
 
             <div class="mt-4 flex items-center justify-end">
-                <Link
+                <!-- <Link
                     :href="route('login')"
                     class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                     Already registered?
-                </Link>
+                </Link> -->
 
                 <PrimaryButton
-                    class="ms-4"
+                    class="bg-blue-600 w-full flex justify-center items-center"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
@@ -109,5 +109,13 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
+        <div class="text-center mt-5">
+            <Link
+                :href="route('login')"
+                class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+                Sudah Daftar ?, Masuk ke InstaApp
+            </Link>
+        </div>
     </GuestLayout>
 </template>

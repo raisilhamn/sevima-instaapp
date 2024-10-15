@@ -1,11 +1,11 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import Checkbox from "@/Components/Checkbox.vue";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 
 defineProps({
     canResetPassword: {
@@ -17,14 +17,14 @@ defineProps({
 });
 
 const form = useForm({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     remember: false,
 });
 
 const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
+    form.post(route("login"), {
+        onFinish: () => form.reset("password"),
     });
 };
 </script>
@@ -37,7 +37,7 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
+        <form class="ml-0 pl-0" @submit.prevent="submit">
             <div>
                 <InputLabel for="email" value="Email" />
 
@@ -72,29 +72,37 @@ const submit = () => {
             <div class="mt-4 block">
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600"
-                        >Remember me</span
-                    >
+                    <span class="ms-2 text-sm text-gray-600">Remember me</span>
                 </label>
             </div>
 
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Forgot your password?
-                </Link>
-
+            <div
+                class="mt-4 flex items-center justify-end w-full ml-0 pl-0 mb-10"
+            >
                 <PrimaryButton
-                    class="ms-4"
+                    class="bg-blue-600 w-full flex justify-center items-center"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Log in
                 </PrimaryButton>
+
+                <!-- <Link
+        v-if="canResetPassword"
+        :href="route('password.request')"
+        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+    >
+        Forgot your password?
+    </Link> -->
             </div>
         </form>
+        <div class="text-center">
+            <Link
+                :href="route('register')"
+                class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+                Belum punya akun? Daftar
+            </Link>
+        </div>
     </GuestLayout>
 </template>
