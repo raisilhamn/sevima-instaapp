@@ -5,8 +5,8 @@ import Sidebar from "@/Components/Sidebar.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { Icon } from "@iconify/vue";
 import axios from "axios";
+import { formatTimeAgo } from '@vueuse/core';
 
-// PrimaryButton
 const props = defineProps({
     post: {
         type: Object,
@@ -82,40 +82,45 @@ const toggleLike = async () => {
                     <!-- Right Section (scrollable) -->
                     <div class="w-1/2 p-4 h-[500px] overflow-y-auto">
                         <div class="flex items-center mb-4">
-                            <img :src="`/storage/images/profiles/${post.profileImage}`" alt="Profile Image"
-                                class="w-12 h-12 rounded-full object-cover mr-4" />
+                            <!-- <img :src="`/storage/images/profiles/${post.profileImage}`" alt="Profile Image"
+                                class="w-12 h-12 rounded-full object-cover mr-4" /> -->
                             <div>
                                 <p class="text-gray-800 font-semibold">
-                                    {{ post.email }}
+                                    {{ post.user.name }}
                                 </p>
                             </div>
                         </div>
                         <hr class="my-5" />
                         <div class="flex items-center mb-4">
-                            <img :src="`/storage/images/profiles/${post.profileImage}`" alt="Profile Image"
-                                class="w-12 h-12 rounded-full object-cover mr-4" />
+                            <!-- <img :src="`/storage/images/profiles/${post.profileImage}`" alt="Profile Image"
+                                class="w-12 h-12 rounded-full object-cover mr-4" /> -->
                             <div>
+                                <p class="text-xs">caption</p>
                                 <p class="text-gray-600">{{ post.content }}</p>
                             </div>
                         </div>
                         <Icon :icon="isLiked ? 'mdi:like' : 'mdi:like-outline'" :ssr="true"
                             class="text-2xl mr-2 cursor-pointer" @click="toggleLike" />
                         <p class="text-sm font-semibold">{{ currentlikecount }} likes</p>
-                        <hr class="my-5" />
+                        <hr class="my-2" />
                         <!-- comments -->
-                        <div class="mt-5">
-                            <h1 class="font-semibold">Comments</h1>
-                            <div class="mt-5">
+                        <div class="">
+                            <h1 class="">Comments</h1>
+                            <div class="mb-2">
                                 <div v-for="comment in comments" :key="comment.id"
                                     class="flex items-center space-x-4 space-y-2">
-                                    <img :src="`/storage/images/profiles/${comment.profileImage}`" alt="Profile Image"
-                                        class="w-12 h-12 rounded-full object-cover" />
-                                    <div>
+                                    <!-- <img :src="`/storage/images/profiles/${comment.profileImage}`" alt="Profile Image"
+                                        class="w-12 h-12 rounded-full object-cover" /> -->
+                                    <div class="flex space-x-3">
                                         <p class="text-gray-800 font-semibold">
-                                            {{ comment.email }}
+                                            {{ comment.user.name }}
                                         </p>
                                         <p class="text-gray-600">
                                             {{ comment.content }}
+                                        </p>
+
+                                        <p class="text-gray-400">
+                                            {{ formatTimeAgo(new Date(comment.created_at)) }}
                                         </p>
                                     </div>
                                 </div>

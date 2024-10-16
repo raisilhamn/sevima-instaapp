@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-md mx-auto bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
         <div class="cursor-pointer flex items-center p-4" @click="$emit('detailProfile', postData.user.id)">
-            <img class="w-10 h-10 rounded-full" :src="postData.profileImage" alt="Profile picture" />
+            <img class="w-10 h-10 rounded-full" :src="`https://picsum.photos/id/${postData.user.id}/200/300`" />
             <div class="ml-3">
                 <p class="text-sm font-semibold ml-2">
                     {{ postData.user.name }}
@@ -39,6 +39,9 @@
                         {{ postData.comments[0].user.name }}
                     </p>
                     <p>{{ postData.comments[0].content }}</p>
+                    <p class="text-gray-400">
+                        {{ formatTimeAgo(new Date(postData.comments[0].created_at)) }}
+                    </p>
                 </div>
             </div>
             <!-- <p v-else>No comments available.</p> -->
@@ -52,6 +55,7 @@
 </template>
 
 <script setup>
+import { formatTimeAgo } from '@vueuse/core';
 import { ref, toRefs, watch } from "vue";
 import { defineProps } from "vue";
 import { Icon } from "@iconify/vue";
