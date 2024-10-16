@@ -24,7 +24,7 @@ const detailPost = (id) => {
             <main class="container flex-1 pt-10">
                 <div>
                     <div v-for="post in posts" :key="post.id" class="mb-4">
-                        <Post :postData="post" @detailPost="detailPost" />
+                        <Post :postData="post" :liked="post.liked" @detailPost="detailPost" />
                     </div>
                 </div>
             </main>

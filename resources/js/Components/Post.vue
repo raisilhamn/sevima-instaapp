@@ -1,13 +1,7 @@
 <template>
-    <div
-        class="max-w-md mx-auto bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden"
-    >
+    <div class="max-w-md mx-auto bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
         <div class="flex items-center p-4">
-            <img
-                class="w-10 h-10 rounded-full"
-                :src="postData.profileImage"
-                alt="Profile picture"
-            />
+            <img class="w-10 h-10 rounded-full" :src="postData.profileImage" alt="Profile picture" />
             <div class="ml-3">
                 <p class="text-sm font-semibold ml-2">
                     {{ postData.user.name }}
@@ -17,27 +11,16 @@
         </div>
 
         <div class="post-image">
-            <img
-                class="w-full"
-                :src="`/storage/images/posts/${postData.images[0].image}`"
-                alt="Post image"
-            />
+            <img class="w-full" :src="`/storage/images/posts/${postData.images[0].image}`" alt="Post image" />
             <!-- {{ postData.images[0].image }} -->
         </div>
 
         <div class="p-4">
             <div class="flex flex-row mb-2">
-                <Icon
-                    icon="mdi:like-outline"
-                    :ssr="true"
-                    class="text-2xl mr-2"
-                />
-                <Icon
-                    @click="$emit('detailPost', postData.id)"
-                    icon="iconamoon:comment"
-                    :ssr="true"
-                    class="text-2xl mr-2 cursor-pointer"
-                />
+                <Icon :icon="isLiked ? 'mdi:like' : 'mdi:like-outline'" :ssr="true" class="text-2xl mr-2 cursor-pointer"
+                    @click="toggleLike" />
+                <Icon @click="$emit('detailPost', postData.id)" icon="iconamoon:comment" :ssr="true"
+                    class="text-2xl mr-2 cursor-pointer" />
             </div>
             <!-- <p class="text-sm font-semibold">{{ postData.likes }} likes</p> -->
             <p class="text-sm">
@@ -45,7 +28,9 @@
                 {{ postData.content }}
             </p>
 
-            <div class="my-2"><hr /></div>
+            <div class="my-2">
+                <hr />
+            </div>
 
             <p class="text-sm text-gray-500">Comments</p>
             <div v-if="postData.comments && postData.comments.length > 0">
@@ -59,10 +44,7 @@
             <!-- <p v-else>No comments available.</p> -->
             <p class="text-xs text-gray-500">{{ postData.timeAgo }}</p>
 
-            <a
-                class="hover:cursor-pointer text-xs mt-2 text-gray-700"
-                @click="$emit('detailPost', postData.id)"
-            >
+            <a class="hover:cursor-pointer text-xs mt-2 text-gray-700" @click="$emit('detailPost', postData.id)">
                 View All Comments
             </a>
         </div>
@@ -70,20 +52,41 @@
 </template>
 
 <script setup>
-import { Link } from "@inertiajs/vue3";
-
-import { toRefs } from "vue";
+import { ref, toRefs, watch } from "vue";
 import { defineProps } from "vue";
 import { Icon } from "@iconify/vue";
+import axios from "axios";
 
 const props = defineProps({
     postData: {
         type: Object,
         required: true,
     },
+    liked: {
+        type: Boolean,
+        required: true,
+    },
 });
 
-const { postData } = toRefs(props);
+const { postData, liked } = toRefs(props);
+const isLiked = ref(liked.value);
+
+watch(liked, (newVal) => {
+    isLiked.value = newVal;
+});
+
+const toggleLike = async () => {
+    try {
+        if (isLiked.value) {
+            await axios.post(`/posts/${postData.value.id}/unlike`);
+        } else {
+            await axios.post(`/posts/${postData.value.id}/like`);
+        }
+        isLiked.value = !isLiked.value;
+    } catch (error) {
+        console.error("Error toggling like:", error);
+    }
+};
 </script>
 
 <style scoped>

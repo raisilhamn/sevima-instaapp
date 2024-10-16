@@ -9,9 +9,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // get all post
-        $posts = Posts::with('user', 'images', 'comments.user', 'likes')->get();
-        // @dd($posts);
+        $posts = Posts::with('user', 'images', 'comments.user', 'likes')->get()->map(function ($post) {
+            $post->liked = $post->likes->contains('users_id', auth()->id());
+            return $post;
+        });
+
         return Inertia::render('Home', [
             'posts' => $posts,
         ]);

@@ -28,8 +28,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/upload', [TempUploaderController::class, '__invoke']);
     Route::post('/comment', action: [PostController::class, 'comment'])->name('comment');
     Route::delete('/revert/{folder}', [DeleteTempController::class, 'delete'])->name('revert');
-    Route::post('/post/like/{id}', [PostController::class, 'like'])->name('post.like');
-    Route::post('/post/unlike/{id}', [PostController::class, 'unlike'])->name('post.unlike');
+    Route::post('/posts/{id}/like', [PostController::class, 'like'])->name('posts.like');
+    Route::post('/posts/{id}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');
 
 });
 

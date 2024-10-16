@@ -53,20 +53,11 @@ function submit() {
 
                 <form @submit.prevent="submit">
                     <div
-                        class="max-w-md min-h-96 mx-auto bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden"
-                    >
+                        class="max-w-2xl min-h-96 mx-auto bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
                         <div class="p-5">
-                            <file-pond
-                                v-bind:required="true"
-                                name="foto"
-                                ref="pond"
-                                required
-                                class-name="my-pond"
+                            <file-pond v-bind:required="true" name="foto" ref="pond" required class-name="my-pond"
                                 label-idle="Drag & Drop your files or <span class='filepond--label-action'>Browse</span>"
-                                accepted-file-types="image/*"
-                                allow-multiple="true"
-                                credits="false"
-                                :server="{
+                                accepted-file-types="image/*" allow-multiple="true" credits="false" :server="{
                                     url: '',
                                     process: {
                                         url: '/upload',
@@ -77,25 +68,17 @@ function submit() {
                                     headers: {
                                         'X-CSRF-TOKEN': $page.props.csrf_token,
                                     },
-                                }"
-                            />
+                                }" />
                         </div>
                         <div>
                             <div class="p-5">
                                 <p class="text-xl font-bold">Caption</p>
-                                <textarea
-                                    id="message"
-                                    v-model="form.content"
-                                    rows="4"
+                                <textarea id="message" v-model="form.content" rows="4"
                                     class="mt-2 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500"
-                                    placeholder="Caption Maksimal 2.200 Karakter "
-                                >
+                                    placeholder="Caption Maksimal 2.200 Karakter ">
                                 </textarea>
 
-                                <PrimaryButton
-                                    class="mt-5 w-full flex justify-center items-center"
-                                    type="submit"
-                                >
+                                <PrimaryButton class="mt-5 w-full flex justify-center items-center" type="submit">
                                     Create
                                 </PrimaryButton>
                             </div>
