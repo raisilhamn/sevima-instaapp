@@ -15,4 +15,11 @@ class ImagesPosts extends Model
         'image',
         'path',
     ];
+
+    // define relationship with Posts model
+    public function post()
+    {
+        return $this->belongsTo(Posts::class, 'post_id');
+    }
+
 }

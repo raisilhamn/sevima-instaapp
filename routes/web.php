@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DeleteTempController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TempUploaderController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -10,9 +11,7 @@ Route::get('/', function () {
     return Inertia::render('Home');
 })->middleware(['auth'])->name(name: 'home');
 
-Route::get('/profile', function () {
-    return Inertia::render('Profile');
-})->middleware(['auth'])->name('profile');
+Route::get('/profile', [ProfileController::class, 'view'])->middleware(['auth'])->name('profile');
 
 Route::get('/create-post', function () {
     return Inertia::render('CreatePost');
@@ -25,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::post('/upload', [TempUploaderController::class, '__invoke']);
     Route::delete('/revert/{folder}', [DeleteTempController::class, 'delete'])->name('revert');
+
 });
 
 Route::get('/dashboard', function () {

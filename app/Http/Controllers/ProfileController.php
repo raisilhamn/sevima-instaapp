@@ -60,4 +60,20 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function view(): Response
+    {
+        // get the current user
+        $user = Auth::user();
+        // query the post of the user
+        $posts = $user->posts()->with('images')->get();
+
+        // dd($posts);
+        // return inertia render with the user and posts
+        return Inertia::render('Profile', [
+            'user' => $user,
+            'posts' => $posts,
+        ]);
+
+    }
 }
