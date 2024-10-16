@@ -16,6 +16,10 @@ const detailPost = (id) => {
     router.get(route("post.show", { id: id }));
 };
 
+const detailProfile = (id) => {
+    router.get(route("profile.show", { id: id }));
+};
+
 const updateLike = (event) => {
     const { id, liked, likeCount } = event;
     const post = props.posts.find(post => post.id === id);
@@ -34,7 +38,7 @@ const updateLike = (event) => {
                 <div>
                     <div v-for="post in posts" :key="post.id" class="mb-4">
                         <Post :postData="post" :liked="post.liked" :likeCount="post.like_count" @detailPost="detailPost"
-                            @updateLike="updateLike" />
+                            @detailProfile="detailProfile" @updateLike="updateLike" />
                     </div>
                 </div>
             </main>

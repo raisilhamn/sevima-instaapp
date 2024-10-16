@@ -61,12 +61,14 @@ class PostController extends Controller
     {
         $post = Posts::with('user', 'images', 'comments.user', 'likes')->findOrFail($id);
         $post->liked = $post->likes->contains('users_id', auth()->id());
+        $post->like_count = $post->likes->count();
 
         return Inertia::render('DetailPost', [
             'post' => $post,
             'images' => $post->images,
             'comments' => $post->comments,
             'liked' => $post->liked,
+            'likecount' => $post->like_count,
         ]);
     }
 

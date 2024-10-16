@@ -18,6 +18,10 @@ const props = defineProps({
         type: Boolean,
         required: true,
     },
+    likecount: {
+        type: Number,
+        required: true,
+    },
 });
 
 const form = useForm({
@@ -34,17 +38,24 @@ function submit() {
 }
 
 const isLiked = ref(props.liked);
+const currentlikecount = ref(props.likecount);
 
 watch(() => props.liked, (newVal) => {
     isLiked.value = newVal;
+});
+
+watch(() => props.likecount, (newVal) => {
+    currentlikecount.value = newVal;
 });
 
 const toggleLike = async () => {
     try {
         if (isLiked.value) {
             await axios.post(`/posts/${props.post.id}/unlike`);
+            currentlikecount.value--;
         } else {
             await axios.post(`/posts/${props.post.id}/like`);
+            currentlikecount.value++;
         }
         isLiked.value = !isLiked.value;
     } catch (error) {
@@ -89,6 +100,7 @@ const toggleLike = async () => {
                         </div>
                         <Icon :icon="isLiked ? 'mdi:like' : 'mdi:like-outline'" :ssr="true"
                             class="text-2xl mr-2 cursor-pointer" @click="toggleLike" />
+                        <p class="text-sm font-semibold">{{ currentlikecount }} likes</p>
                         <hr class="my-5" />
                         <!-- comments -->
                         <div class="mt-5">

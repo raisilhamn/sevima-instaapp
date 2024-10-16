@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-md mx-auto bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
-        <div class="flex items-center p-4">
+        <div class="cursor-pointer flex items-center p-4" @click="$emit('detailProfile', postData.user.id)">
             <img class="w-10 h-10 rounded-full" :src="postData.profileImage" alt="Profile picture" />
             <div class="ml-3">
                 <p class="text-sm font-semibold ml-2">

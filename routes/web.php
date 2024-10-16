@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/revert/{folder}', [DeleteTempController::class, 'delete'])->name('revert');
     Route::post('/posts/{id}/like', [PostController::class, 'like'])->name('posts.like');
     Route::post('/posts/{id}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');
+    Route::get('/profile/{id}', action: [ProfileController::class, 'visit'])->name('profile.show');
 
 });
 

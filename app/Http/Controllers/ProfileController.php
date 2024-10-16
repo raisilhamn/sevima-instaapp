@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -65,6 +66,23 @@ class ProfileController extends Controller
     {
         // get the current user
         $user = Auth::user();
+        // query the post of the user
+        $posts = $user->posts()->with('images')->get();
+
+        // dd($posts);
+        // return inertia render with the user and posts
+        return Inertia::render('Profile', [
+            'user' => $user,
+            'posts' => $posts,
+        ]);
+
+    }
+
+    // visit profile
+    public function visit($id): Response
+    {
+        // get the user by id
+        $user = User::findOrFail($id);
         // query the post of the user
         $posts = $user->posts()->with('images')->get();
 
