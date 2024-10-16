@@ -56,20 +56,17 @@ class PostController extends Controller
         return redirect()->route('home')->with('success', 'Berhasil Membuat Post');
 
     }
+
     public function show($id)
     {
-        $post = Posts::find($id);
-        // get all images from post with eloquent
-        $images = $post->images;
+        $post = Posts::with('user', 'images', 'comments.user', 'likes')->findOrFail($id);
+        $post->liked = $post->likes->contains('users_id', auth()->id());
 
-        // Correct the relationship call
-        $comments = $post->comments;
-
-        // return inertia view with data
         return Inertia::render('DetailPost', [
             'post' => $post,
-            'images' => $images,
-            'comments' => $comments,
+            'images' => $post->images,
+            'comments' => $post->comments,
+            'liked' => $post->liked,
         ]);
     }
 

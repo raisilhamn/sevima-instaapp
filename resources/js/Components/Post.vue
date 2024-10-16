@@ -22,7 +22,7 @@
                 <Icon @click="$emit('detailPost', postData.id)" icon="iconamoon:comment" :ssr="true"
                     class="text-2xl mr-2 cursor-pointer" />
             </div>
-            <!-- <p class="text-sm font-semibold">{{ postData.likes }} likes</p> -->
+            <p class="text-sm font-semibold">{{ currentLikeCount }} likes</p>
             <p class="text-sm">
                 <span class="font-semibold">{{ postData.username }}</span>
                 {{ postData.content }}
@@ -66,23 +66,36 @@ const props = defineProps({
         type: Boolean,
         required: true,
     },
+    likeCount: {
+        type: Number,
+        required: true,
+    },
 });
 
-const { postData, liked } = toRefs(props);
+const { postData, liked, likeCount } = toRefs(props);
 const isLiked = ref(liked.value);
+const currentLikeCount = ref(likeCount.value);
 
 watch(liked, (newVal) => {
     isLiked.value = newVal;
+});
+
+watch(likeCount, (newVal) => {
+    currentLikeCount.value = newVal;
 });
 
 const toggleLike = async () => {
     try {
         if (isLiked.value) {
             await axios.post(`/posts/${postData.value.id}/unlike`);
+            currentLikeCount.value--;
         } else {
             await axios.post(`/posts/${postData.value.id}/like`);
+            currentLikeCount.value++;
         }
         isLiked.value = !isLiked.value;
+        // Emit an event to notify the parent component
+        emit('updateLike', { id: postData.value.id, liked: isLiked.value, likeCount: currentLikeCount.value });
     } catch (error) {
         console.error("Error toggling like:", error);
     }

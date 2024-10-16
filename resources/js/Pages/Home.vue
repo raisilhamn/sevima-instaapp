@@ -15,6 +15,15 @@ const props = defineProps({
 const detailPost = (id) => {
     router.get(route("post.show", { id: id }));
 };
+
+const updateLike = (event) => {
+    const { id, liked, likeCount } = event;
+    const post = props.posts.find(post => post.id === id);
+    if (post) {
+        post.liked = liked;
+        post.like_count = likeCount;
+    }
+};
 </script>
 
 <template>
@@ -24,7 +33,8 @@ const detailPost = (id) => {
             <main class="container flex-1 pt-10">
                 <div>
                     <div v-for="post in posts" :key="post.id" class="mb-4">
-                        <Post :postData="post" :liked="post.liked" @detailPost="detailPost" />
+                        <Post :postData="post" :liked="post.liked" :likeCount="post.like_count" @detailPost="detailPost"
+                            @updateLike="updateLike" />
                     </div>
                 </div>
             </main>

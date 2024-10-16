@@ -11,6 +11,7 @@ class HomeController extends Controller
     {
         $posts = Posts::with('user', 'images', 'comments.user', 'likes')->get()->map(function ($post) {
             $post->liked = $post->likes->contains('users_id', auth()->id());
+            $post->like_count = $post->likes->count();
             return $post;
         });
 
