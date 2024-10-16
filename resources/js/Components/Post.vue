@@ -6,14 +6,24 @@
                 <p class="text-sm font-semibold ml-2">
                     {{ postData.user.name }}
                 </p>
-                <!-- <p class="text-xs text-gray-500">{{ postData.location }}</p> -->
+
             </div>
+            <p class="text-sm text-gray-500 ml-2">
+                {{ formatTimeAgo(new Date(postData.created_at)) }}
+                <!-- {{ postData.user.name }} -->
+            </p>
         </div>
 
-        <div class="post-image">
-            <img class="w-full" :src="`/storage/images/posts/${postData.images[0].image}`" alt="Post image" />
-            <!-- {{ postData.images[0].image }} -->
-        </div>
+        <Carousel :wrap-around="false">
+            <Slide v-for="(index) in postData.images" :key="index">
+                <div class="">
+                    <img :src="`/storage/images/posts/${index.image}`" class="w-full" />
+                </div>
+            </Slide>
+            <template #addons>
+                <Navigation />
+            </template>
+        </Carousel>
 
         <div class="p-4">
             <div class="flex flex-row mb-2">
@@ -44,7 +54,6 @@
                     </p>
                 </div>
             </div>
-            <!-- <p v-else>No comments available.</p> -->
             <p class="text-xs text-gray-500">{{ postData.timeAgo }}</p>
 
             <a class="hover:cursor-pointer text-xs mt-2 text-gray-700" @click="$emit('detailPost', postData.id)">
@@ -55,6 +64,9 @@
 </template>
 
 <script setup>
+import { Carousel, Navigation, Slide } from "vue3-carousel";
+import "vue3-carousel/dist/carousel.css";
+
 import { formatTimeAgo } from '@vueuse/core';
 import { ref, toRefs, watch } from "vue";
 import { defineProps } from "vue";
@@ -109,5 +121,26 @@ const toggleLike = async () => {
 <style scoped>
 .post-image img {
     object-fit: cover;
+}
+
+
+
+.carousel__slide {
+    padding: 10px;
+}
+
+.carousel__prev,
+.carousel__next {
+    box-sizing: content-box;
+    color: gray;
+    border-radius: 100%;
+    background-color: white;
+    border: 1px solid gray;
+    padding: 10px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    max-width: 20px;
+    max-height: 20px;
+    /* transition: transform 0.5s ease; */
 }
 </style>

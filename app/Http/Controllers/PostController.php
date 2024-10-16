@@ -16,10 +16,16 @@ class PostController extends Controller
 {
     public function store(Request $request)
     {
+        // Validate the request
+        $request->validate([
+            'content' => 'required|string|max:2200',
+        ]);
+
         $post = Posts::create([
             'content' => $request->input('content'),
             'user_id' => auth()->id(),
         ]);
+
         $folderNames = array_map(function ($json) {
             return json_decode($json, true)['folder'];
         }, $request->foto);
@@ -54,7 +60,6 @@ class PostController extends Controller
         };
 
         return redirect()->route('home')->with('success', 'Berhasil Membuat Post');
-
     }
 
     public function show($id)

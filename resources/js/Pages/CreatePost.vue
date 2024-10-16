@@ -73,6 +73,11 @@ function submit() {
                         <div>
                             <div class="p-5">
                                 <p class="text-xl font-bold">Caption</p>
+                                <div v-if="Object.keys(form.errors).length" class="mt-2 text-red-600">
+                                    <ul>
+                                        <li v-for="(error, key) in form.errors" :key="key">{{ error }}</li>
+                                    </ul>
+                                </div>
                                 <textarea id="message" v-model="form.content" rows="4"
                                     class="mt-2 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500"
                                     placeholder="Caption Maksimal 2.200 Karakter ">
@@ -90,20 +95,18 @@ function submit() {
             <!-- Right Sidebar with fixed width -->
             <aside class="sticky top-0 ml-10 pt-10 w-52">
                 <nav>
-                    <!-- <ul class="space-y-4">
-                        <div class="flex">
-                            <img
-                                class="w-10 h-10 rounded-full"
-                                :src="postData.profileImage"
-                                alt="Profile picture"
-                            />
-                            <div class="flex my-auto ml-2">
-                                <p href="" class="mr-2">
-                                    {{ userEmail }}
-                                </p>
-                            </div>
+
+                    <!-- circle profile with username -->
+                    <div class="flex items-center mb-5">
+                        <img :src="`https://picsum.photos/id/${$page.props.auth.user.id}/200/300`" alt="profile"
+                            class="w-12 h-12 rounded-full">
+                        <!-- {{ $page.props.auth.user.id }} -->
+                        <div class="ml-3">
+                            <div class="font-semibold">{{ $page.props.auth.user.name }}</div>
+                            <!-- <div class="text-xs">john_doe</div> -->
                         </div>
-                    </ul> -->
+                    </div>
+
                     <div class="mt-5">
                         <div class="text-xs">2024 Sevima InstaApp</div>
                         <div class="text-xs">@ Rais Ilham Nustara</div>

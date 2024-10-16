@@ -45,6 +45,18 @@ const updateLike = (event) => {
             <aside class="h-screen sticky top-0 ml-10 pt-10 w-52">
                 <nav>
                     <div class="mt-5">
+
+                        <!-- circle profile with username -->
+                        <div class="flex items-center mb-5">
+                            <img :src="`https://picsum.photos/id/${$page.props.auth.user.id}/200/300`" alt="profile"
+                                class="w-12 h-12 rounded-full">
+                            <!-- {{ $page.props.auth.user.id }} -->
+                            <div class="ml-3">
+                                <div class="font-semibold">{{ $page.props.auth.user.name }}</div>
+                                <!-- <div class="text-xs">john_doe</div> -->
+                            </div>
+                        </div>
+
                         <div class="text-xs">2024 Sevima InstaApp</div>
                         <div class="text-xs">@ Rais Ilham Nustara</div>
                     </div>

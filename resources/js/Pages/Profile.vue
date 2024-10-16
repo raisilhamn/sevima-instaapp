@@ -50,11 +50,7 @@ const extractedImages = props.posts
                     <div v-if="extractedImages.length === 0">
                         Tidak ada postingan
                     </div>
-                    <GridPosts
-                        v-else
-                        :posts="extractedImages"
-                        @detailPost="detailPost"
-                    />
+                    <GridPosts v-else :posts="extractedImages" @detailPost="detailPost" />
                 </div>
             </main>
         </div>

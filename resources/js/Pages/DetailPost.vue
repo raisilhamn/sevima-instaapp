@@ -6,6 +6,9 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { Icon } from "@iconify/vue";
 import axios from "axios";
 import { formatTimeAgo } from '@vueuse/core';
+import { Carousel, Navigation, Slide } from "vue3-carousel";
+import "vue3-carousel/dist/carousel.css";
+
 
 const props = defineProps({
     post: {
@@ -74,10 +77,20 @@ const toggleLike = async () => {
                 <div class="flex max-w-5xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
                     <!-- Left Section (static) -->
                     <div class="w-1/2 p-4 bg-gray-100">
-                        <div>
+                        <Carousel :wrap-around="false">
+                            <Slide v-for="(index) in post.images" :key="index">
+                                <div class="">
+                                    <img :src="`/storage/images/posts/${index.image}`" class="w-full" />
+                                </div>
+                            </Slide>
+                            <template #addons>
+                                <Navigation />
+                            </template>
+                        </Carousel>
+                        <!-- <div>
                             <img :src="`/storage/images/posts/${post.images[0].image}`" alt="Post Image"
                                 class="w-full object-cover rounded-lg shadow" />
-                        </div>
+                        </div> -->
                     </div>
                     <!-- Right Section (scrollable) -->
                     <div class="w-1/2 p-4 h-[500px] overflow-y-auto">
