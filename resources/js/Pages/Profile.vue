@@ -14,6 +14,10 @@ const props = defineProps({
         type: Array,
         required: true,
     },
+    user: {
+        type: Object,
+        required: true,
+    },
 });
 
 const profileData = {
@@ -46,7 +50,8 @@ const extractedImages = props.posts
             <Sidebar />
             <main class="container flex-1 pt-10">
                 <div class="max-w-5xl mx-auto p-4">
-                    <ProfileSection :profileData="profileData" />
+                    <!-- {{ user }} -->
+                    <ProfileSection :profileData="user" />
                     <div v-if="extractedImages.length === 0">
                         Tidak ada postingan
                     </div>
