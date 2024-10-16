@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
@@ -53,5 +54,37 @@ class PostController extends Controller
 
         return redirect()->route('home')->with('success', 'Berhasil Membuat Post');
 
+    }
+    public function show($id)
+    {
+        $post = Posts::find($id);
+        // get all images from post with eloquent
+        $images = $post->images;
+
+        // Correct the relationship call
+        $comments = $post->comments;
+
+        // return inertia view with data
+        return Inertia::render('DetailPost', [
+            'post' => $post,
+            'images' => $images,
+            'comments' => $comments,
+        ]);
+    }
+
+    public function comment(Request $request)
+    {
+        $request->validate([
+            'content' => 'required',
+            'posts_id' => 'required|exists:posts,id',
+        ]);
+
+        $post = Posts::find($request->posts_id);
+        $post->comments()->create([
+            'content' => $request->input('content'),
+            'users_id' => auth()->id(),
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil Menambahkan Komentar');
     }
 }

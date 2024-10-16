@@ -1,9 +1,8 @@
 <script setup>
-import { Head, Link } from "@inertiajs/vue3";
-import { Icon } from "@iconify/vue";
 import Post from "@/Components/Post.vue";
 import { ref } from "vue";
 import { usePage } from "@inertiajs/vue3";
+import Sidebar from "@/Components/Sidebar.vue";
 
 const props = usePage().props;
 const userEmail = props.auth.user ? props.auth.user.email : "Guest";
@@ -13,7 +12,7 @@ const postData = ref({
     location: "Pantai Goa Petapa",
     image: "https://picsum.photos/200",
     likes: 120,
-    caption: "Beautiful sunset at the beach 🌅 #nature #peaceful",
+    content: "Beautiful sunset at the beach 🌅 #nature #peaceful",
     timeAgo: "2 hours ago",
 });
 </script>
@@ -21,86 +20,7 @@ const postData = ref({
     <div>
         <div class="pl-10 mx-auto flex">
             <!-- Left Sidebar -->
-            <aside class="h-screen sticky top-0 mr-10 pt-10">
-                <nav>
-                    <ul class="space-y-4">
-                        <img
-                            class="w-52"
-                            src="../../../public/images/Sevima-logo.png"
-                            alt="Logo"
-                        />
-
-                        <li>
-                            <Link class="flex" :href="route('home')">
-                                <Icon
-                                    icon="mdi:home"
-                                    :ssr="true"
-                                    class="text-3xl mr-2"
-                                />
-                                <div class="flex my-auto">
-                                    <p
-                                        href=""
-                                        class="text-xl mr-2 font-extrabold"
-                                    >
-                                        Home
-                                    </p>
-                                </div>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link class="flex" :href="route('dashboard')">
-                                <Icon
-                                    icon="material-symbols-light:add-box-outline"
-                                    :ssr="true"
-                                    class="text-3xl mr-2"
-                                />
-                                <div class="flex my-auto">
-                                    <p
-                                        href=""
-                                        class="text-xl mr-2 font-extrabold"
-                                    >
-                                        Create
-                                    </p>
-                                </div>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link class="flex" :href="route('dashboard')">
-                                <Icon
-                                    icon="mdi:account"
-                                    :ssr="true"
-                                    class="text-3xl mr-2"
-                                />
-                                <div class="flex my-auto">
-                                    <p
-                                        href=""
-                                        class="text-xl mr-2 font-extrabold"
-                                    >
-                                        Profile
-                                    </p>
-                                </div>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link class="flex" :href="route('dashboard')">
-                                <Icon
-                                    icon="mdi:logout"
-                                    :ssr="true"
-                                    class="text-3xl ml-1 mr-2"
-                                />
-                                <div class="flex my-auto">
-                                    <p
-                                        href=""
-                                        class="text-xl mr-2 font-extrabold"
-                                    >
-                                        Logout
-                                    </p>
-                                </div>
-                            </Link>
-                        </li>
-                    </ul>
-                </nav>
-            </aside>
+            <Sidebar />
 
             <!-- Main Content -->
             <main class="container flex-1 pt-10">

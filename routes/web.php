@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Home');
-})->middleware(['auth'])->name(name: 'home');
+})->middleware(['auth'])->name('home');
 
 Route::get('/profile', [ProfileController::class, 'view'])->middleware(['auth'])->name('profile');
 
@@ -22,19 +22,14 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/post/{id}', [PostController::class, 'show'])->name('post.show');
     Route::post('/upload', [TempUploaderController::class, '__invoke']);
+    Route::post('/comment', action: [PostController::class, 'comment'])->name('comment');
     Route::delete('/revert/{folder}', [DeleteTempController::class, 'delete'])->name('revert');
-
 });
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth'])->name('dashboard');
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 
 require __DIR__ . '/auth.php';

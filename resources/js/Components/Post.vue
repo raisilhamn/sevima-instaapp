@@ -34,7 +34,7 @@
             <p class="text-sm font-semibold">{{ postData.likes }} likes</p>
             <p class="text-sm">
                 <span class="font-semibold">{{ postData.username }}</span>
-                {{ postData.caption }}
+                {{ postData.content }}
             </p>
             <p class="text-xs text-gray-500">{{ postData.timeAgo }}</p>
 

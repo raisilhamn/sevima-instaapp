@@ -20,7 +20,9 @@ import { Link } from "@inertiajs/vue3";
                 <img src="../../../public/images/instagram.png" alt="Logo" />
             </div>
             <!-- Second column -->
-            <div class="flex-grow max-w-sm border p-10 pt-20 pb-10">
+            <div
+                class="flex-grow max-w-sm border p-10 pt-20 pb-10 rounded-xl shadow-sm"
+            >
                 <img src="../../../public/images/Sevima-logo.png" alt="Logo" />
 
                 <slot />
