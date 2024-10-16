@@ -7,11 +7,12 @@ import { Link } from "@inertiajs/vue3";
     <aside class="h-screen sticky top-0 mr-10 pt-10">
         <nav>
             <ul class="space-y-4">
-                <img
-                    class="w-52"
-                    src="../../../public/images/Sevima-logo.png"
-                    alt="Logo"
-                />
+                <Link :href="route('home')"
+                    ><img
+                        class="w-52"
+                        src="../../../public/images/Sevima-logo.png"
+                        alt="Logo"
+                /></Link>
 
                 <li>
                     <Link class="flex" :href="route('home')">

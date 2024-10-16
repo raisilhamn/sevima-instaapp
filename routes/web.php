@@ -1,15 +1,16 @@
 <?php
 
 use App\Http\Controllers\DeleteTempController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TempUploaderController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Home');
-})->middleware(['auth'])->name('home');
+// Route::get('/', function () {
+//     return Inertia::render('Home');
+// })->middleware(['auth'])->name('home');
 
 Route::get('/profile', [ProfileController::class, 'view'])->middleware(['auth'])->name('profile');
 
@@ -22,10 +23,14 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/post/{id}', [PostController::class, 'show'])->name('post.show');
+    Route::get('/post/{id}', action: [PostController::class, 'show'])->name('post.show');
+    Route::get('/', action: [HomeController::class, 'index'])->name('home');
     Route::post('/upload', [TempUploaderController::class, '__invoke']);
     Route::post('/comment', action: [PostController::class, 'comment'])->name('comment');
     Route::delete('/revert/{folder}', [DeleteTempController::class, 'delete'])->name('revert');
+    Route::post('/post/like/{id}', [PostController::class, 'like'])->name('post.like');
+    Route::post('/post/unlike/{id}', [PostController::class, 'unlike'])->name('post.unlike');
+
 });
 
 Route::get('/dashboard', function () {

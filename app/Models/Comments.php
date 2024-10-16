@@ -21,4 +21,10 @@ class Comments extends Model
     {
         return $this->belongsTo(Posts::class, 'posts_id', 'id');
     }
+
+    // relation to user
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
 }

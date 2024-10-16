@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ImagesPosts;
+use App\Models\Likes;
 use App\Models\Posts;
 use App\Models\TemporaryFile;
 use Illuminate\Http\Request;
@@ -86,5 +87,32 @@ class PostController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Berhasil Menambahkan Komentar');
+    }
+
+    public function like(Request $request, $id)
+    {
+        $userId = auth()->id();
+        $existingLike = Likes::where('posts_id', $id)->where('users_id', $userId)->first();
+
+        if (!$existingLike) {
+            Likes::create([
+                'posts_id' => $id,
+                'users_id' => $userId,
+            ]);
+        }
+
+        return redirect()->back();
+    }
+
+    public function unlike(Request $request, $id)
+    {
+        $userId = auth()->id();
+        $existingLike = Likes::where('posts_id', $id)->where('users_id', $userId)->first();
+
+        if ($existingLike) {
+            $existingLike->delete();
+        }
+
+        return redirect()->back();
     }
 }

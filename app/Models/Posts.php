@@ -38,6 +38,6 @@ class Posts extends Model
     // define relationship with images model
     public function images()
     {
-        return $this->hasMany(ImagesPosts::class, 'post_id');
+        return $this->hasMany(ImagesPosts::class, foreignKey: 'post_id');
     }
 }
