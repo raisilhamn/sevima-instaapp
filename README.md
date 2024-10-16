@@ -19,3 +19,17 @@
 ![App Screenshot](./readme_images/6.png)
 ![App Screenshot](./readme_images/7.png)
 ![App Screenshot](./readme_images/8.png)
+
+## Run Locally
+
+Clone the project
+
+```bash
+git clone https://github.com/raisilhamn/sevima-instaapp
+cd sevima-instaapp
+composer install
+npm install
+php artisan migrate
+php artisan serve
+npm run dev
+```
