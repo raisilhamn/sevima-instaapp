@@ -12,6 +12,7 @@ class ImagesPosts extends Model
 
     protected $fillable = [
         'post_id',
+        'image',
         'path',
     ];
 }

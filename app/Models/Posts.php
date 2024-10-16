@@ -14,7 +14,6 @@ class Posts extends Model
     // define fillable columns
     protected $fillable = [
         'user_id',
-        'title',
         'content',
     ];
 }

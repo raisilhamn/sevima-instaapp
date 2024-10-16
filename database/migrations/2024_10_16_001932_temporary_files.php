@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // buatkan tabel daftar gambar dan relasikan ke post
-        Schema::create('post_images', function (Blueprint $table) {
+        Schema::create('temporary_files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('post_id')->constrained()->onDelete('cascade');
-            $table->string('path');
-            $table->string('image');
+            $table->string('folder');
+            $table->string('foto');
             $table->timestamps();
         });
 

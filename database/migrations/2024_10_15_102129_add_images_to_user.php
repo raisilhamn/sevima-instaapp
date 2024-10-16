@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('profile_photo_path')->nullable();
+            // username unique
+            $table->string('username')->unique()->nullable();
             $table->text('bio')->nullable();
         });
     }

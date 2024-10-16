@@ -14,10 +14,7 @@ return new class extends Migration
         // create posts table
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            // slug
-            $table->string('slug')->unique();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('title');
             $table->text('content');
             $table->timestamps();
         });
